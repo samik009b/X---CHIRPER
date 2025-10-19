@@ -1,4 +1,5 @@
-import express, { Request, Response } from "express";
+import express from "express";
+import { userRouter } from "./routes/userRoutes";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -8,8 +9,5 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Routes
-app.get("/", (req: Request, res: Response) => {
-    res.json({ message: "giorno giovanna" });
-});
-
+app.use("/user", userRouter);
 export default app;

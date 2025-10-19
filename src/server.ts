@@ -1,10 +1,15 @@
 import app from "./app";
+import DBconnect from "./config/db";
+import { config } from "./config";
 
 const startserver = async () => {
-	const PORT = process.env.PORT || 3000;
-	app.listen(PORT, () => {
-		console.log(`Server is running on http://localhost:${PORT}`);
-	});
+    try {
+        await DBconnect();
+        const PORT = config.PORT;
+        app.listen(PORT, () => {
+            console.log(`Server is running on http://localhost:${PORT}`);
+        });
+    } catch (error) {}
 };
 
 startserver();
