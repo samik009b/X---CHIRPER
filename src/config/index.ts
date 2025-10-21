@@ -10,6 +10,7 @@ export const config = Object.freeze({
     REFRESH_TOKEN_EXPIRY: process.env.REFRESH_TOKEN_EXPIRY as ms.StringValue,
     ACCESS_TOKEN_SECRET: process.env.ACCESS_TOKEN_SECRET,
     ACCESS_TOKEN_EXPIRY: process.env.ACCESS_TOKEN_EXPIRY as ms.StringValue,
+    LOG_LEVEL: process.env.LOG_LEVEL,
     WHITELISTED_EMAIL: ["admin001@gmail.com", "admin007@gmail.com"]
 });
 
@@ -17,6 +18,8 @@ export const statusCodes = Object.freeze({
     OK: 200,
     CREATED: 202,
     NO_CONTENT: 204,
+    RESET_CONTENT: 205,
+    pARTIAL_CONTENT: 206,
     BAD_REQUEST: 400,
     UNAUTHORIZED: 401,
     FORBIDDED: 403,

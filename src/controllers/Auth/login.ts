@@ -13,10 +13,11 @@ import User from "../../models/user.model";
 import Token from "../../models/token.model";
 import { config, statusCodes } from "../../config";
 import { generateAccessToken, generateRefreshToken } from "../../utils/tokengeneration";
+import { logger } from "../../utils/logger";
 
 type inputType = Pick<IUser, "email" | "password">;
 
-export const loginHandler = async (req: Request, res: Response) => {
+const loginHandler = async (req: Request, res: Response) => {
     const { email, password } = req.body as inputType;
 
     if (typeof email !== "string" || typeof password !== "string") {
@@ -26,9 +27,7 @@ export const loginHandler = async (req: Request, res: Response) => {
     }
 
     if ([email, password].some((field) => field.trim() === "")) {
-        return res
-            .status(statusCodes.BAD_REQUEST)
-            .json({ message: "all fields are required" });
+        return res.status(statusCodes.BAD_REQUEST).json({ message: "all fields are required" });
     }
 
     const user = await User.findOne({ email }).select(" -__v");
@@ -39,13 +38,11 @@ export const loginHandler = async (req: Request, res: Response) => {
     }
     const isPasswordVerified = await bcrypt.compare(password, user.password);
     if (!isPasswordVerified) {
-        return res
-            .status(statusCodes.BAD_REQUEST)
-            .json({ message: "password is invalid" });
+        return res.status(statusCodes.BAD_REQUEST).json({ message: "password is invalid" });
     }
 
-    const accessToken = generateAccessToken(user._id as Types.ObjectId);
-    const refreshToken = generateRefreshToken(user._id as Types.ObjectId);
+    const accessToken = generateAccessToken(user._id as Types.ObjectId, user.email);
+    const refreshToken = generateRefreshToken(user._id as Types.ObjectId, user.email);
 
     const newToken = await Token.create({
         userId: user._id,
@@ -71,5 +68,9 @@ export const loginHandler = async (req: Request, res: Response) => {
             accessToken: accessToken,
             refreshToken: refreshToken
         });
+
+    logger.info(`user logged in ${user.name}`);
+    return;
 };
 
+export default loginHandler;

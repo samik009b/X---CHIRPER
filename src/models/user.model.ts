@@ -17,6 +17,9 @@ const userSchema = new Schema<IUser>({
         min: [5, "password should be minimum of 5 character"],
         regex: [/^[A-Za-z0-9]+$/, "password can not contain special character"]
     },
+    avatar: {
+        type: String
+    },
     role: {
         type: String,
         enum: ["admin", "user"],
