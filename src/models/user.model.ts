@@ -25,6 +25,16 @@ const userSchema = new Schema<IUser>({
         enum: ["admin", "user"],
         default: "user"
     },
+    followers: {
+        type: Number,
+        default: 0
+    },
+    following: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ],
     createdAt: {
         type: Date,
         default: Date.now()

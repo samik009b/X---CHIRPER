@@ -8,8 +8,10 @@ export interface ILike extends Document {
 
 export interface IPost extends Document {
     authorId: Types.ObjectId;
+    serialNumber: number;
     content: string;
-    likes: ILike;
+    likedBy: [Types.ObjectId];
+    likes: number;
     createdAt: Date;
 }
 
@@ -21,6 +23,8 @@ export interface IUser extends Document {
     password: string;
     avatar: string;
     role: roletype;
+    followers: number;
+    following: [Types.ObjectId];
     createdAt: Date;
 }
 
@@ -33,4 +37,9 @@ export interface IComment extends Document {
 export interface IToken extends Document {
     userId: Types.ObjectId;
     token: string;
+}
+
+export interface IRequestUser {
+    userId: Types.ObjectId;
+    email: string;
 }

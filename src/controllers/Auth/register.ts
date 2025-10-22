@@ -6,9 +6,9 @@
  */
 
 import { Request, Response } from "express";
+import { logger } from "../../utils/logger";
 import User from "../../models/user.model";
 import { config, statusCodes } from "../../config";
-import { logger } from "../../utils/logger";
 import  uploadImage  from "../../utils/uploadImage";
 
 export const registerhandler = async (req: Request, res: Response) => {

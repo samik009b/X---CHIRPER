@@ -6,14 +6,24 @@ const postSchema = new Schema<IPost>({
         type: Schema.Types.ObjectId,
         ref: "User"
     },
+    serialNumber: {
+        type: Number,
+        default: 0
+    },
     content: {
         type: String,
         max: [250, "content must be under 250 characters"]
     },
     likes: {
-        type: Schema.Types.ObjectId,
-        ref: "Like"
+        type: Number,
+        default: 0
     },
+    likedBy: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ],
     createdAt: {
         type: Date,
         default: Date.now()
