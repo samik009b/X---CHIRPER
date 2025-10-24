@@ -6,11 +6,12 @@ import User from "../../models/user.model";
 import { IUser } from "../../types";
 
 const feedhandler = async (req: Request, res: Response) => {
-    const userId = req.requestUser?.userId;
-    if (!userId)
-        return res.status(statusCodes.UNAUTHORIZED).json({ message: "you need to login first" });
-
     try {
+        const userId = req.requestUser?.userId;
+        if (!userId)
+            return res
+                .status(statusCodes.UNAUTHORIZED)
+                .json({ message: "you need to login first" });
         const user = (await User.findById(userId).select("following")) as IUser;
         const accountsFollowedByUser = user.following;
 

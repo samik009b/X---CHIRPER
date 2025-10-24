@@ -3,7 +3,6 @@ import { Document, Types } from "mongoose";
 export interface ILike extends Document {
     likedBy: Types.ObjectId;
     post?: Types.ObjectId;
-    comment?: Types.ObjectId;
 }
 
 export interface IPost extends Document {
@@ -23,6 +22,7 @@ export interface IUser extends Document {
     password: string;
     avatar: string;
     role: roletype;
+    banned: boolean;
     followers: number;
     following: [Types.ObjectId];
     createdAt: Date;

@@ -1,13 +1,14 @@
 import { Request, Response } from "express";
 import { IRequestUser } from "../../types";
 import { statusCodes } from "../../config";
-import { Post } from "../../models/post.model";
 import { logger } from "../../utils/logger";
+import { Post } from "../../models/post.model";
 
 type userData = Pick<IRequestUser, "email" | "userId">;
 export const postDeleteHandler = async (req: Request, res: Response) => {
     const { email, userId } = req.requestUser as userData;
 
+    // what if someone put -ve or character ?
     const serialNumber = req.params.serialNumber;
     if (!serialNumber) {
         return res

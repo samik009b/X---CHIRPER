@@ -25,6 +25,9 @@ const userSchema = new Schema<IUser>({
         enum: ["admin", "user"],
         default: "user"
     },
+    banned: {
+        type: Boolean
+    },
     followers: {
         type: Number,
         default: 0

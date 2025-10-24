@@ -21,7 +21,7 @@ const postSchema = new Schema<IPost>({
     likedBy: [
         {
             type: Schema.Types.ObjectId,
-            ref: "User"
+            ref: "Like"
         }
     ],
     createdAt: {

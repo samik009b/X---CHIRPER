@@ -10,10 +10,10 @@ import bcrypt from "bcrypt";
 import { Types } from "mongoose";
 import { IUser } from "../../types";
 import User from "../../models/user.model";
+import { logger } from "../../utils/logger";
 import Token from "../../models/token.model";
 import { config, statusCodes } from "../../config";
 import { generateAccessToken, generateRefreshToken } from "../../utils/tokengeneration";
-import { logger } from "../../utils/logger";
 
 type inputType = Pick<IUser, "email" | "password">;
 
